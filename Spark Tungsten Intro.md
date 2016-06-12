@@ -1,6 +1,6 @@
-# 探索Spark Tungsten的秘密 #
+# 探索Spark Tungsten#
 
-Spark Tungsten是databricks近期提出来的提升Spark性能的最新计划。 我们知道由于Spark是由scala开发的，JVM的实现带来了一些性能上的限制和弊端（例如GC上的overhead），使得Spark在性能上无法和一些更加底层的语言（例如c，可以对memory进行高效管理，从而利用hardware的特性）相媲美。 基于此，Tungsten就诞生了，从memory和cpu层面对spark的性能进行优化。 该项目的官方介绍详见[https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html](https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html "Project Tungsten: Bringing Spark Closer to Bare Metal")。 Tungsten的优化主要包括三个方面：memory management and binary processing，cache-aware computation， code generation。 官方已经对各个方面可以做的优化进行了介绍，这里我们将走进各个方面，详细介绍工作原理，优化细节以及代码实现。
+Spark Tungsten是databricks提出来的提升Spark性能的最新计划。 该项目的官方介绍详见[https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html](https://databricks.com/blog/2015/04/28/project-tungsten-bringing-spark-closer-to-bare-metal.html "Project Tungsten: Bringing Spark Closer to Bare Metal")。 Tungsten的优化主要包括三个方面：memory management and binary processing，cache-aware computation， code generation。 官方已经对各个方面可以做的优化进行了介绍，这里我们将走进各个方面，详细介绍工作原理，优化细节以及代码实现。
 
 ## 概述 ##
 官方对于Tungsten的三方面优化的概述
